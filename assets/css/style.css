@@ -1,0 +1,26 @@
+#victory{
+    color: white;
+    z-index: 1;
+    font-size: 25px;
+    font-family: 'Creepster', cursive;
+    
+}
+
+#defeat{
+    color: white;
+    z-index: 1;
+    width: 200px;
+    height: 200px;
+    font-size: 20px;
+    font-family: 'Creepster', cursive;
+}
+
+#victory img{
+    width: 250px;
+    height: auto;
+}
+
+#defeat img{
+    width: 250px;
+    height: auto;
+}
