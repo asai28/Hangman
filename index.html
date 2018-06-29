@@ -86,7 +86,6 @@
             setTimeout(hideDefeatImage, 5000);
             refreshGame();
             return loss;
-
         }
 
         function refreshGame() {
@@ -96,6 +95,7 @@
             guessesRemaining = 13;
             document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
             guessedArray = "";
+            displayArray = "";
             computerWord = cars[Math.floor(Math.random() * cars.length) + 1].toLowerCase();
             for (var i = 0; i < computerWord.length; ++i) {
 
