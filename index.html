@@ -12,6 +12,10 @@
     <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Markazi+Text" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 
 <body style="background-image: url(http://myclone.files.wordpress.com/2011/02/home-hangman-photoshopped.jpg)">
@@ -28,6 +32,8 @@
                 <img class="card-img-top" src="http://www.magma.ca/~cagraha/textures/hangman.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h2 class="card-title">You have 13 guesses to guess the word! Be ready to be spooked out.</h2>
+                    <button class="btn play btn-success">Play me</button>
+                    <button class="btn pause btn-danger">Pause</button>
                     <p class="card-text">
                         <p id="win">Wins: 0</p>
                         <p id="loss">Losses: 0</p>
@@ -50,6 +56,8 @@
         var guessedArray = "", displayArray = "";
         var win = 0, loss = 0, guessesRemaining = 13;
         
+        
+
         function showVictoryImage() {
             document.getElementById("victory").style.visibility = "initial";
         }
@@ -116,7 +124,16 @@
             document.getElementsByClassName("card-img-top").src = "http://11points.com/wp-content/uploads/2012/09/dominatehangman-1600.jpg";
         }
 
-
+        $(document).ready(function(){
+            var audioElement = document.createElement("audio");
+            audioElement.setAttribute("src","assets/creepy.mp3");
+            $(".play").on("click",function(){
+            audioElement.play();
+            });
+            $(".pause").on("click",function(){
+            audioElement.pause();
+            });
+        });
         refreshGame();
         hideVictoryImage();
         hideDefeatImage();
@@ -152,7 +169,10 @@
                     }
                 }
             }
+            
         };
+        
+        
     </script>
     </bodytent:>
 
