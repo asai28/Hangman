@@ -6,6 +6,16 @@
     
 }
 
+h2{
+    font-family: 'Creepster', cursive;
+}
+
+p{
+    font-family: 'Markazi Text', serif;
+    text-align: left;
+    font-size: 32px;
+}
+
 #defeat{
     color: white;
     z-index: 1;
