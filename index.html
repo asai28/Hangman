@@ -46,129 +46,194 @@
     </div>
 
     <script>
-        //Different hangman words
-        var cars = ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "unnerving", "spine-chilling", "bloodcurdling"];
-        //Computer generated random word
-        var lettersUsed = [];
-        //The starting string at the beginning of the game
-        var guessedArray = "", displayArray = "";
-        var win = 0, loss = 0, guessesRemaining = 13;
-        var x = document.getElementById("myAudio");
+        //Designing the game as an object
+        var game = {
+            synonyms_of_scary: ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "unnerving", "spine-chilling", "bloodcurdling"],
+            lettersUsed: [],
+            guessedArray: "",
+            displayArray: "",
+            win: 0,
+            loss: 0,
+            guessesRemaining: 13,
+            x: document.getElementById("myAudio"),
+            playAudio: function () {
+                this.x.play();
+            },
+            showVictoryImage: function () {
+                document.getElementById("victory").style.visibility = "initial";
+            },
+            showDefeatImage: function () {
+                document.getElementById("defeat").style.visibility = "initial";
+            },
+            hideVictoryImage: function () {
+                document.getElementById("victory").style.visibility = "hidden";
+            },
+            hideDefeatImage: function () {
+                document.getElementById("defeat").style.visibility = "hidden";
+            },
+            updateWins: function () {
+                this.playAudio();
+                document.getElementById("guess").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
+                this.win += 1;
+                document.getElementById("win").innerHTML = "Won: " + this.win;
+                document.getElementById("victory").setAttribute("id", "victory");
+                this.showVictoryImage();
+                setTimeout(this.hideVictoryImage, 5000);
+                setTimeout(this.hideDefeatImage, 5000);
+                this.refreshGame();
+                return this.win;
+            },
+            updateLoss: function () {
 
-        function playAudio() {
-            x.play();
-        }
+                document.getElementById("guess").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
+                this.loss += 1;
+                document.getElementById("loss").innerHTML = "Lost: " + this.loss;
+                this.showDefeatImage();
+                setTimeout(this.hideVictoryImage, 5000);
+                setTimeout(this.hideDefeatImage, 5000);
+                this.refreshGame();
+                return this.loss;
+            },
+            refreshGame: function () {
+                Letters = "Letters Used: ";
+                this.lettersUsed = [];
+                document.getElementById("lettersUsed").innerHTML = Letters;
+                this.guessesRemaining = 13;
+                document.getElementById("guess").innerHTML = "Guesses Remaining: " + this.guessesRemaining;
+                this.guessedArray = "";
+                this.displayArray = "";
+                this.computerWord = this.synonyms_of_scary[Math.floor(Math.random() * this.synonyms_of_scary.length) + 1].toLowerCase();
+                for (var i = 0; i < this.computerWord.length; ++i) {
 
+                    if (/[a-zA-Z]/.test(this.computerWord[i])) {
+                        this.guessedArray += '_';
+                        this.displayArray += '_ ';
+                    }
+                    else {
+                        this.guessedArray += this.computerWord[i];
+                        this.displayArray += this.computerWord[i] + " ";
+                    }
 
-        function showVictoryImage() {
-            document.getElementById("victory").style.visibility = "initial";
-        }
+                };
+                document.getElementById("userGuess").innerHTML = "Word: " + this.displayArray;
+                document.getElementsByClassName("card-img-top").src = "http://11points.com/wp-content/uploads/2012/09/dominatehangman-1600.jpg";
+            }
 
-        function showDefeatImage() {
-            document.getElementById("defeat").style.visibility = "initial";
-        }
+        };
 
-        function hideVictoryImage() {
-            document.getElementById("victory").style.visibility = "hidden";
-        }
+        // //Different hangman words
+        // var synonyms_of_scary = ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "unnerving", "spine-chilling", "bloodcurdling"];
+        // //Computer generated random word
+        // var lettersUsed = [];
+        // //The starting string at the beginning of the game
+        // var guessedArray = "", displayArray = "";
+        // var win = 0, loss = 0, guessesRemaining = 13;
+        // var x = document.getElementById("myAudio");
 
-        function hideDefeatImage() {
-            document.getElementById("defeat").style.visibility = "hidden";
-        }
-
-        function updateWins(win) {
-            playAudio();
-            document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-            win = win + 1;
-            document.getElementById("win").innerHTML = "Won: " + win;
-            document.getElementById("victory").setAttribute("id", "victory");
-            showVictoryImage();
-            setTimeout(hideVictoryImage, 5000);
-            setTimeout(hideDefeatImage, 5000);
-            refreshGame();
-            return win;
-        }
-
-        function updateLoss(loss) {
-
-            document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-            loss++;
-            document.getElementById("loss").innerHTML = "Lost: " + loss;
-            showDefeatImage();
-            setTimeout(hideVictoryImage, 5000);
-            setTimeout(hideDefeatImage, 5000);
-            refreshGame();
-            return loss;
-        }
-
-        function refreshGame() {
-            Letters = "Letters Used: ";
-            lettersUsed = [];
-            document.getElementById("lettersUsed").innerHTML = Letters;
-            guessesRemaining = 13;
-            document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-            guessedArray = "";
-            displayArray = "";
-            computerWord = cars[Math.floor(Math.random() * cars.length) + 1].toLowerCase();
-            for (var i = 0; i < computerWord.length; ++i) {
-
-                if (/[a-zA-Z]/.test(computerWord[i])) {
-                    guessedArray += '_';
-                    displayArray += '_ ';
-                }
-                else {
-                    guessedArray += computerWord[i];
-                    displayArray += computerWord[i] + " ";
-                }
-
-            };
-            document.getElementById("userGuess").innerHTML = "Word: " + displayArray;
-            document.getElementsByClassName("card-img-top").src = "http://11points.com/wp-content/uploads/2012/09/dominatehangman-1600.jpg";
-        }
-
-        
-
-
-        // $(".play").on("click",function(){
-        //     audioElement.play();
-        //     });
-        //     $(".pause").on("click",function(){
-        //     audioElement.pause();
-        //     });
+        // function playAudio() {
+        //     x.play();
+        // }
 
 
-        refreshGame();
-        hideVictoryImage();
-        hideDefeatImage();
+        // function showVictoryImage() {
+        //     document.getElementById("victory").style.visibility = "initial";
+        // }
+
+        // function showDefeatImage() {
+        //     document.getElementById("defeat").style.visibility = "initial";
+        // }
+
+        // function hideVictoryImage() {
+        //     document.getElementById("victory").style.visibility = "hidden";
+        // }
+
+        // function hideDefeatImage() {
+        //     document.getElementById("defeat").style.visibility = "hidden";
+        // }
+
+        // function updateWins(win) {
+        //     playAudio();
+        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
+        //     win = win + 1;
+        //     document.getElementById("win").innerHTML = "Won: " + win;
+        //     document.getElementById("victory").setAttribute("id", "victory");
+        //     showVictoryImage();
+        //     setTimeout(hideVictoryImage, 5000);
+        //     setTimeout(hideDefeatImage, 5000);
+        //     refreshGame();
+        //     return win;
+        // }
+
+        // function updateLoss(loss) {
+
+        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
+        //     loss++;
+        //     document.getElementById("loss").innerHTML = "Lost: " + loss;
+        //     showDefeatImage();
+        //     setTimeout(hideVictoryImage, 5000);
+        //     setTimeout(hideDefeatImage, 5000);
+        //     refreshGame();
+        //     return loss;
+        // }
+
+        // function refreshGame() {
+        //     Letters = "Letters Used: ";
+        //     lettersUsed = [];
+        //     document.getElementById("lettersUsed").innerHTML = Letters;
+        //     guessesRemaining = 13;
+        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
+        //     guessedArray = "";
+        //     displayArray = "";
+        //     computerWord = synonyms_of_scary[Math.floor(Math.random() * synonyms_of_scary.length) + 1].toLowerCase();
+        //     for (var i = 0; i < computerWord.length; ++i) {
+
+        //         if (/[a-zA-Z]/.test(computerWord[i])) {
+        //             guessedArray += '_';
+        //             displayArray += '_ ';
+        //         }
+        //         else {
+        //             guessedArray += computerWord[i];
+        //             displayArray += computerWord[i] + " ";
+        //         }
+
+        //     };
+        //     document.getElementById("userGuess").innerHTML = "Word: " + displayArray;
+        //     document.getElementsByClassName("card-img-top").src = "http://11points.com/wp-content/uploads/2012/09/dominatehangman-1600.jpg";
+        // }
+           
+        game.refreshGame();
+        game.hideVictoryImage();
+        game.hideDefeatImage();
         document.onkeyup = function (element) {
             var userKey = element.key;
             //Pushing guessed letters and pushes letters only if they are unique into lettersUsed array and are alphabets
-            if (/[a-zA-Z]/.test(userKey) && lettersUsed.indexOf(userKey) === -1 && userKey.length === 1) {
-                lettersUsed.push(userKey);
+            if (/[a-zA-Z]/.test(userKey) && game.lettersUsed.indexOf(userKey) === -1 && userKey.length === 1) {
+                game.lettersUsed.push(userKey);
                 Letters += userKey + ", ";
                 document.getElementById("lettersUsed").innerHTML = Letters;
 
-                if (computerWord.indexOf(userKey) >= 0) {
-                    for (var i = 0; i < computerWord.length; ++i) {
-                        if (userKey === computerWord[i]) {
-                            var newGuessedArray = guessedArray.slice(0, i) + userKey + guessedArray.slice(i + 1, guessedArray.length);
-                            guessedArray = newGuessedArray;
-                            var displayArray = "";
+                if (game.computerWord.indexOf(userKey) >= 0) {
+                    
+                    for (var i = 0; i < game.computerWord.length; ++i) {
+                        if (userKey === game.computerWord[i]) {
+                            var newGuessedArray = game.guessedArray.slice(0, i) + userKey + game.guessedArray.slice(i + 1, game.guessedArray.length);
+                            game.guessedArray = newGuessedArray;
+                            game.displayArray = "";
                             for (var j = 0; j < newGuessedArray.length; ++j) {
-                                displayArray += newGuessedArray[j] + " ";
+                                game.displayArray += newGuessedArray[j] + " ";
                             }
-                            document.getElementById("userGuess").innerHTML = "Word: " + displayArray;
+                            document.getElementById("userGuess").innerHTML = "Word: " + game.displayArray;
                         }
                     }
-                    if (guessedArray.indexOf("_") === -1) {
-                        win = updateWins(win);
+                    if (game.guessedArray.indexOf("_") === -1) {
+                        game.win = game.updateWins();
                     }
                 }
                 else {
-                    guessesRemaining--;
-                    document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-                    if (guessesRemaining === 0) {
-                        loss = updateLoss(loss);
+                    game.guessesRemaining--;
+                    document.getElementById("guess").innerHTML = "Guesses Remaining: " + game.guessesRemaining;
+                    if (game.guessesRemaining === 0) {
+                        game.loss = game.updateLoss();
                     }
                 }
             }
@@ -177,6 +242,6 @@
 
 
     </script>
-    </bodytent:>
+    </body>
 
 </html>
