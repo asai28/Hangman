@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body style="background-image: url(http://myclone.files.wordpress.com/2011/02/home-hangman-photoshopped.jpg); background-repeat: repeat-x; background-size: 100%">
+<body style="background-image: url(http://myclone.files.wordpress.com/2011/02/home-hangman-photoshopped.jpg); background-repeat: repeat; background-size: 100%">
     <audio id="myAudio" src="assets/21950217_victory_by_julesounds_preview.mp3"></audio>
     <div class="container">
         <div class="row">
@@ -30,13 +30,10 @@
                 <img class="card-img-top" src="http://www.magma.ca/~cagraha/textures/hangman.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h2 class="card-title">You have 13 guesses to guess the word! Be ready to be spooked out.</h2>
-                    <!-- <button class="btn play btn-success">Play me</button>
-                    <button class="btn pause btn-danger">Pause</button> -->
                     <p class="card-text">
                         <p id="win">Wins: 0</p>
                         <p id="loss">Losses: 0</p>
                         <p id="guess">Guesses Remaining: 13</p>
-                        <!-- <p id="lives">Lives Remaining: 5</p> -->
                         <p id="userGuess">Word: </p>
                         <p id="lettersUsed">Letters Used: </p>
                     </p>
@@ -120,87 +117,7 @@
             }
 
         };
-
-        // //Different hangman words
-        // var synonyms_of_scary = ["alarming", "chilling", "creepy", "eerie", "hairy", "horrifying", "intimidating", "shocking", "spooky", "bloodcurdling", "hair-raising", "horrendous", "unnerving", "spine-chilling", "bloodcurdling"];
-        // //Computer generated random word
-        // var lettersUsed = [];
-        // //The starting string at the beginning of the game
-        // var guessedArray = "", displayArray = "";
-        // var win = 0, loss = 0, guessesRemaining = 13;
-        // var x = document.getElementById("myAudio");
-
-        // function playAudio() {
-        //     x.play();
-        // }
-
-
-        // function showVictoryImage() {
-        //     document.getElementById("victory").style.visibility = "initial";
-        // }
-
-        // function showDefeatImage() {
-        //     document.getElementById("defeat").style.visibility = "initial";
-        // }
-
-        // function hideVictoryImage() {
-        //     document.getElementById("victory").style.visibility = "hidden";
-        // }
-
-        // function hideDefeatImage() {
-        //     document.getElementById("defeat").style.visibility = "hidden";
-        // }
-
-        // function updateWins(win) {
-        //     playAudio();
-        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-        //     win = win + 1;
-        //     document.getElementById("win").innerHTML = "Won: " + win;
-        //     document.getElementById("victory").setAttribute("id", "victory");
-        //     showVictoryImage();
-        //     setTimeout(hideVictoryImage, 5000);
-        //     setTimeout(hideDefeatImage, 5000);
-        //     refreshGame();
-        //     return win;
-        // }
-
-        // function updateLoss(loss) {
-
-        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-        //     loss++;
-        //     document.getElementById("loss").innerHTML = "Lost: " + loss;
-        //     showDefeatImage();
-        //     setTimeout(hideVictoryImage, 5000);
-        //     setTimeout(hideDefeatImage, 5000);
-        //     refreshGame();
-        //     return loss;
-        // }
-
-        // function refreshGame() {
-        //     Letters = "Letters Used: ";
-        //     lettersUsed = [];
-        //     document.getElementById("lettersUsed").innerHTML = Letters;
-        //     guessesRemaining = 13;
-        //     document.getElementById("guess").innerHTML = "Guesses Remaining: " + guessesRemaining;
-        //     guessedArray = "";
-        //     displayArray = "";
-        //     computerWord = synonyms_of_scary[Math.floor(Math.random() * synonyms_of_scary.length) + 1].toLowerCase();
-        //     for (var i = 0; i < computerWord.length; ++i) {
-
-        //         if (/[a-zA-Z]/.test(computerWord[i])) {
-        //             guessedArray += '_';
-        //             displayArray += '_ ';
-        //         }
-        //         else {
-        //             guessedArray += computerWord[i];
-        //             displayArray += computerWord[i] + " ";
-        //         }
-
-        //     };
-        //     document.getElementById("userGuess").innerHTML = "Word: " + displayArray;
-        //     document.getElementsByClassName("card-img-top").src = "http://11points.com/wp-content/uploads/2012/09/dominatehangman-1600.jpg";
-        // }
-           
+   
         game.refreshGame();
         game.hideVictoryImage();
         game.hideDefeatImage();
